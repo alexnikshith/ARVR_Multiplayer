@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dmh1e6j182y6e"]
+
+[ext_resource type="Script" path="res://scripts/basket.gd" id="1_script"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_basket"]
+height = 1.6
+radius = 1.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_BasketBase"]
+albedo_color = Color(0.12, 0.16, 0.22, 1)
+metallic = 0.5
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Mat_BasketWalls"]
+albedo_color = Color(0.18, 0.22, 0.3, 1)
+metallic = 0.6
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Mat_GlowRim"]
+albedo_color = Color(0.2, 0.85, 1, 1)
+emission_enabled = true
+emission = Color(0.2, 0.85, 1, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_Interior"]
+albedo_color = Color(0.08, 0.1, 0.14, 1)
+roughness = 0.8
+
+[node name="ShapeBasket" type="Area3D" groups=["baskets"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CylinderShape3D_basket")
+
+[node name="BasePedestal" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+radius = 1.6
+height = 0.2
+material = SubResource("Mat_BasketBase")
+
+[node name="OuterBin" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+radius = 1.35
+height = 0.8
+material = SubResource("Mat_BasketWalls")
+
+[node name="InnerHole" type="CSGCylinder3D" parent="OuterBin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+operation = 2
+radius = 1.15
+height = 0.9
+material = SubResource("Mat_Interior")
+
+[node name="GlowRim" type="CSGTorus3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96, 0)
+inner_radius = 1.15
+outer_radius = 1.38
+material = SubResource("Mat_GlowRim")
+
+[node name="BillboardLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+render_priority = 6
+text = "📥 SHAPE COLLECTION BASKET
+📦 0 Cube(s) | 🟡 0 Sphere(s) | 🔺 0 Cone(s) | 🟩 0 Cuboid(s)
+⭐ Total Shapes in Basket: 0"
+font_size = 22
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DepositFlash" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+visible = false
+light_color = Color(0.3, 0.9, 1, 1)
+light_energy = 0.0
+omni_range = 6.0

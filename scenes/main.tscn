@@ -1,0 +1,527 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvyek5p7u31sm"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/arena.tscn" id="2_arena"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.1, 0.12, 0.16, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.35, 0.55, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
+bg_color = Color(0.08, 0.1, 0.15, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.45, 0.7, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guide"]
+bg_color = Color(0.14, 0.17, 0.23, 0.75)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.4, 0.6, 0.4)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scoreboard"]
+bg_color = Color(0.08, 0.1, 0.15, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.55, 0.85, 0.75)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_row"]
+bg_color = Color(0.12, 0.16, 0.22, 0.75)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_action"]
+bg_color = Color(0.1, 0.15, 0.22, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.85, 1, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 8
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Arena" parent="." instance=ExtResource("2_arena")]
+
+[node name="MenuCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 8, 16)
+current = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("../PlayersContainer")
+
+[node name="PlayersContainer" type="Node3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LobbyUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPanel" type="PanelContainer" parent="CanvasLayer/LobbyUI"]
+custom_minimum_size = Vector2(580, 560)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -280.0
+offset_right = 290.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/LobbyUI/MainPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "🤖 AR/VR MULTIPLAYER 3D AVATAR"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.85, 1)
+theme_override_font_sizes/font_size = 13
+text = "Select from 8 Characters across 2 Folders • Multi-Instance & LAN"
+horizontal_alignment = 1
+
+[node name="HSeparator1" type="HSeparator" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="LblName" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Player Nickname:"
+
+[node name="NameInput" type="LineEdit" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "player1"
+placeholder_text = "e.g. player1, player2"
+
+[node name="LblChar" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Select 3D Avatar (1 of 8):"
+
+[node name="CharacterOption" type="OptionButton" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblSkin" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Theme / Skin Color:"
+
+[node name="SkinOption" type="OptionButton" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblSerial" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Machine / Serial No:"
+
+[node name="SerialInput" type="LineEdit" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PC-04"
+placeholder_text = "Your machine number e.g. PC-04"
+
+[node name="LblIP" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Server IP Address:"
+
+[node name="IPInput" type="LineEdit" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+placeholder_text = "127.0.0.1 for local, or LAN IP"
+
+[node name="LblPort" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Network Port:"
+
+[node name="PortInput" type="LineEdit" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "8910"
+
+[node name="PresetsHBox" type="HBoxContainer" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Preset1Btn" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/PresetsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "🔵 P1 (Imp/Blue)"
+
+[node name="Preset2Btn" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/PresetsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "🔴 P2 (Puglin/Red)"
+
+[node name="Preset3Btn" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/PresetsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "🟢 P3 (Astro/Green)"
+
+[node name="HBoxButtons" type="HBoxContainer" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="HostButton" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/HBoxButtons"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+text = "🏠 HOST GAME ✅"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/HBoxButtons"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "🔗 JOIN GAME ✅"
+
+[node name="ToolsHBox" type="HBoxContainer" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LobbyFullscreenBtn" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/ToolsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+text = "⛶ Fullscreen"
+
+[node name="LaunchWindow2Btn" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/ToolsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+text = "🚀 Open Win 2"
+
+[node name="LaunchWindow3Btn" type="Button" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/ToolsHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.95, 0.55, 1)
+text = "🚀 Open Win 3"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 0.45, 1)
+theme_override_font_sizes/font_size = 13
+text = "Ready. Select HOST to start server or JOIN to connect."
+horizontal_alignment = 1
+
+[node name="GuideBox" type="PanelContainer" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_guide")
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GuideBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="LblGuide" type="Label" parent="CanvasLayer/LobbyUI/MainPanel/MarginContainer/VBoxContainer/GuideBox/Margin"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "📌 Scenario A Testing: In Godot Debug Menu -> 'Customize Run Instances' -> Set to 2 -> Press F5.
+Window 1: Click HOST (player1, Blue). Window 2: Click Preset 2, then JOIN (player2, Red)."
+autowrap_mode = 2
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopBar" type="HBoxContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="PlayerInfoBadge" type="Label" parent="CanvasLayer/HUD/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "👤 player1 [PC-01] | Host"
+
+[node name="TimerBadge" type="Label" parent="CanvasLayer/HUD/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.25, 1)
+theme_override_font_sizes/font_size = 28
+text = "⏱️ 00:00.0"
+
+[node name="ScoreBadge" type="Label" parent="CanvasLayer/HUD/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.5, 1)
+theme_override_font_sizes/font_size = 24
+text = "⭐ 0 pts"
+
+[node name="OnlineCountBadge" type="Label" parent="CanvasLayer/HUD/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 20
+text = "👥 1 Online"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/HUD/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ScoreboardToggleBtn" type="Button" parent="CanvasLayer/HUD/TopBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "📊 Scoreboard (TAB)"
+
+[node name="FullscreenButton" type="Button" parent="CanvasLayer/HUD/TopBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "⛶ Fullscreen"
+
+[node name="HudLaunchWindow2Btn" type="Button" parent="CanvasLayer/HUD/TopBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "🚀 Win 2"
+
+[node name="HudLaunchWindow3Btn" type="Button" parent="CanvasLayer/HUD/TopBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.55, 1)
+theme_override_font_sizes/font_size = 17
+text = "🚀 Win 3"
+
+[node name="DisconnectButton" type="Button" parent="CanvasLayer/HUD/TopBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 17
+text = "❌ Leave"
+
+[node name="LiveBasketTicker" type="PanelContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -540.0
+offset_top = 84.0
+offset_right = 540.0
+offset_bottom = 134.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="BasketTickerLabel" type="Label" parent="CanvasLayer/HUD/LiveBasketTicker"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 18
+text = "📥 Basket Inventory: 📦 0 Cubes | 🟡 0 Spheres | 🔺 0 Cones | 🟩 0 Cuboids (Total: 0)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreboardPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
+visible = false
+custom_minimum_size = Vector2(960, 420)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -210.0
+offset_right = 480.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_scoreboard")
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/HUD/ScoreboardPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/HUD/ScoreboardPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="CanvasLayer/HUD/ScoreboardPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "🏆 AR/VR MULTIPLAYER LIVE SCOREBOARD & TASK MONITOR"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CanvasLayer/HUD/ScoreboardPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.78, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Live Shared Network Scoreboard • Real-Time Shapes & Checkpoints Tracker"
+horizontal_alignment = 1
+
+[node name="GlobalBasketBox" type="PanelContainer" parent="CanvasLayer/HUD/ScoreboardPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_row")
+
+[node name="GlobalBasketLabel" type="Label" parent="CanvasLayer/HUD/ScoreboardPanel/Margin/VBox/GlobalBasketBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 13
+text = "📥 ARENA BASKET: 📦 0 Cubes | 🟡 0 Spheres | 🔺 0 Cones | 🟩 0 Cuboids (Total: 0)"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/HUD/ScoreboardPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TableRows" type="VBoxContainer" parent="CanvasLayer/HUD/ScoreboardPanel/Margin/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="CloseHint" type="Label" parent="CanvasLayer/HUD/ScoreboardPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.6, 0.75, 1)
+theme_override_font_sizes/font_size = 11
+text = "Press [TAB] or click 'Scoreboard' to toggle this panel"
+horizontal_alignment = 1
+
+[node name="ActionPromptPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -230.0
+offset_top = -108.0
+offset_right = 230.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_action")
+
+[node name="ActionButton" type="Button" parent="CanvasLayer/HUD/ActionPromptPanel"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.6, 1)
+theme_override_colors/font_disabled_color = Color(0.6, 0.65, 0.75, 0.6)
+theme_override_font_sizes/font_size = 15
+text = "👉 [E] Pick Up Shape"
+flat = true
+
+[node name="BottomControlsHint" type="PanelContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -410.0
+offset_top = -46.0
+offset_right = 410.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="HintLabel" type="Label" parent="CanvasLayer/HUD/BottomControlsHint"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 12
+text = "🎮 WASD = Move | Space = Jump | Shift = Sprint | [E] or Click Button = Pick/Drop/Deposit | TAB = Scoreboard | Esc = Mouse"
+horizontal_alignment = 1
+vertical_alignment = 1

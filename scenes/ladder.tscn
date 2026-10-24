@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://c67h2jkm4l8op"]
+
+[ext_resource type="Script" path="res://scripts/ladder.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ladder"]
+size = Vector3(1.4, 3.5, 1.0)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Rail"]
+albedo_color = Color(0.22, 0.26, 0.34, 1)
+metallic = 0.8
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="Mat_Rung"]
+albedo_color = Color(0.15, 0.85, 1, 1)
+emission_enabled = true
+emission = Color(0.15, 0.85, 1, 1)
+emission_energy_multiplier = 2.0
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="Mat_BaseGlow"]
+albedo_color = Color(0.1, 0.7, 0.9, 1)
+emission_enabled = true
+emission = Color(0.1, 0.7, 0.9, 1)
+emission_energy_multiplier = 1.5
+
+[node name="Ladder" type="Area3D" groups=["ladders"]]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+shape = SubResource("BoxShape3D_ladder")
+
+[node name="LeftRail" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1.75, 0)
+radius = 0.04
+height = 3.5
+radial_segments = 12
+material = SubResource("Mat_Rail")
+
+[node name="RightRail" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.75, 0)
+radius = 0.04
+height = 3.5
+radial_segments = 12
+material = SubResource("Mat_Rail")
+
+[node name="Rung1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung7" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung8" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung9" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="Rung10" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.18, 0)
+size = Vector3(0.9, 0.04, 0.04)
+material = SubResource("Mat_Rung")
+
+[node name="BasePad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+size = Vector3(1.2, 0.04, 0.8)
+material = SubResource("Mat_BaseGlow")
+
+[node name="PromptLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+render_priority = 6
+text = "🪜 LADDER TO TOWER
+[W / SPACE] Climb Up • [S] Climb Down"
+font_size = 20
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+modulate = Color(0.2, 0.85, 1, 1)
